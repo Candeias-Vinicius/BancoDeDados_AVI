@@ -17,7 +17,7 @@ public class ContatoListController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		req.setAttribute("lista", ContatoDAO.getAllUsers());
+		req.setAttribute("contatos", ContatoDAO.getAllUsers());
 		req.getRequestDispatcher("").forward(req, resp);
 	}
 }

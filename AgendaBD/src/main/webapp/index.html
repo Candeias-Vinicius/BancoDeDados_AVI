@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="container">
-    <a href="/agendamentos/registrar" >Adicionar Contato</a>
+    <a href="/contatos" >Adicionar Contato</a>
     <hr />
 
     <div >
@@ -18,15 +18,19 @@
                 <th>Celular</th>
                 <th>Grupo</th>
                 
-                <th colspan="2">Contatos: ${lista.size()} </th>
+                <th colspan="2">Contato: ${contatos.size()} </th>
             </tr>
-            <c:forEach var="age" items="${lista}" >
+            
+            <c:forEach var="contato" items="${contatos}" >         
                 <tr>
-                    <td>${age.contato.nome}</td>
-                    <td>${age.data}</td>
-                    <td>${age.hora} - ${age.horaT}</td>
+                    <td>${contato.nome}</td>
+                    <td>${contato.telefone}</td>
+                    <td>${contato.celular}</td>
+                    <td>${contato.grupo}</td>
                                         
-                    <td><a href="/contatos/delete?nome=${age.nome}&telefone=${age.telefone}&celular=${age.celular}&grupo=${age.grupo}" >EXCLUIR</a></td>
+                    <td><a href="/contatos/delete?nome=${contato.nome}&telefone=${contato.telefone}&horaT=${contato.celular}&grupo=${contato.grupo}" >EXCLUIR</a></td>
+                    <td><a href="/contatos/update?index=${contato.id}" >EDITAR</a></td>
+                    
                 </tr>
             </c:forEach>
         </table>
