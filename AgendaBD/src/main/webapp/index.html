@@ -5,6 +5,33 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>oasdnoçifchn</h1>
+<div class="container">
+    <a href="/agendamentos/registrar" >Adicionar Contato</a>
+    <hr />
+
+    <div >
+		<div class="text-danger">${erro}</div>
+        <table class="table table-striped ">
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Celular</th>
+                <th>Grupo</th>
+                
+                <th colspan="2">Contatos: ${lista.size()} </th>
+            </tr>
+            <c:forEach var="age" items="${lista}" >
+                <tr>
+                    <td>${age.contato.nome}</td>
+                    <td>${age.data}</td>
+                    <td>${age.hora} - ${age.horaT}</td>
+                                        
+                    <td><a href="/contatos/delete?nome=${age.nome}&telefone=${age.telefone}&celular=${age.celular}&grupo=${age.grupo}" >EXCLUIR</a></td>
+                </tr>
+            </c:forEach>
+        </table>
+
+    </div>
+</div>
 </body>
 </html>

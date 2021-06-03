@@ -2,17 +2,15 @@ package br.com.agenda.bd.model;
 
 public enum TipoGrupoEnum {
 	
-	Familia(1), Amigos(2), Trabalho(3), Outros(4);
+	Familia("Familia"), Amigos("Amigos"), Trabalho("Trabalho"), Outros("Outros");
 	
+private final String valorEnum;
 
-
-private final int valor;
-
-TipoGrupoEnum(int i) {
-	valor = i;
+TipoGrupoEnum(String valor) {
+	valorEnum = valor;
 }
 	
-public int getValor() {
-	return valor;
+public String getValorEnum() {
+	return valorEnum;
 }
 }

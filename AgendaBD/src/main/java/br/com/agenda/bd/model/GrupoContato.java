@@ -3,6 +3,7 @@ package br.com.agenda.bd.model;
 import java.util.List;
 
 public class GrupoContato {
+
 	private TipoGrupoEnum tipoGrupo;
 	private List<Contato> contatos;
 	
@@ -23,6 +24,5 @@ public class GrupoContato {
 	public void setContatos(List<Contato> contatos) {
 		this.contatos = contatos;
 	}
-	
 	
 }
