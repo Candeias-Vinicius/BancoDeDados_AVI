@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.agenda.bd.model.Contato;
+import br.com.agenda.bd.model.TipoGrupoEnum;
 import br.com.agenda.bd.util.ContatoUtil;
 
 public class ContatoDAO {
@@ -22,11 +23,14 @@ public class ContatoDAO {
 	public static void addContato(Contato contato) {
 		try {
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("insert into users(nome,telefone,celular) values (?, ?, ?)");
+					.prepareStatement("insert into users(id,nome,telefone,celular,grupo) values (?, ?, ?,?,?)");
 
-			preparedStatement.setString(1, contato.getNome());
-			preparedStatement.setString(2, contato.getTelefone());
-			preparedStatement.setString(3, contato.getCelular());
+			preparedStatement.setInt(1, contato.getId());
+			preparedStatement.setString(2, contato.getNome());
+			preparedStatement.setString(3, contato.getTelefone());
+			preparedStatement.setString(4, contato.getCelular());
+			preparedStatement.setString(5, contato.getGrupo().getValorEnum());
+			
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -49,11 +53,14 @@ public class ContatoDAO {
 	public static void updateContato(Contato contato) {
 		try {
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("update users set nome=?, telefone=?, celular=?");
-
-			preparedStatement.setString(1, contato.getNome());
-			preparedStatement.setString(2, contato.getTelefone());
-			preparedStatement.setString(3, contato.getCelular());
+					.prepareStatement("update users set id=? , nome=?, telefone=?, celular=?, grupo=?");
+			
+			preparedStatement.setInt(1, contato.getId());
+			preparedStatement.setString(2, contato.getNome());
+			preparedStatement.setString(3, contato.getTelefone());
+			preparedStatement.setString(4, contato.getCelular());
+			preparedStatement.setString(5, contato.getGrupo().getValorEnum());
+			
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -61,18 +68,20 @@ public class ContatoDAO {
 		}
 	}
 
-	public static List<Contato> getAllUsers() {
+	public static List<Contato> getAllContacts() {
 		List<Contato> listaDeUsuario = new ArrayList<Contato>();
 		try {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from contatos");
 			while (rs.next()) {
-				Contato contato = new Contato(null, null, null, null);
-
+				Contato contato = new Contato();
+				
+				contato.setId(rs.getInt("id"));
 				contato.setNome(rs.getString("nome"));
 				contato.setTelefone(rs.getString("telefone"));
 				contato.setCelular(rs.getString("celular"));
-
+				String grupo = rs.getString("grupo");
+				contato.setGrupo(TipoGrupoEnum.valueOf(grupo));
 				listaDeUsuario.add(contato);
 			}
 		} catch (SQLException e) {
@@ -82,15 +91,26 @@ public class ContatoDAO {
 		return listaDeUsuario;
 	}
 
-	public static Contato findById(Integer id) {
-
-		List<Contato> contatos = ContatoDAO.getAllUsers();
-		Contato u = null;
-		for (Contato contato : contatos) {
-			if (contato.getId().equals(id)) {
-				u = contato;
+	public static List<Contato> getContactsForGroups() {
+		List<Contato> listaDeUsuario = new ArrayList<Contato>();
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("select grupo * from contatos");
+			while (rs.next()) {
+				Contato contato = new Contato();
+				
+				contato.setId(rs.getInt("id"));
+				contato.setNome(rs.getString("nome"));
+				contato.setTelefone(rs.getString("telefone"));
+				contato.setCelular(rs.getString("celular"));
+				String grupo = rs.getString("grupo");
+				contato.setGrupo(TipoGrupoEnum.valueOf(grupo));
+				listaDeUsuario.add(contato);
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		return u;
+
+		return listaDeUsuario;
 	}
 }

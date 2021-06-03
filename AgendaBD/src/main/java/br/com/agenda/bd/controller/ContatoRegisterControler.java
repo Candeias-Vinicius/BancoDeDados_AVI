@@ -50,7 +50,7 @@ public class ContatoRegisterControler extends HttpServlet {
 
 	private void validaCelular(String celular) throws Exception {
 		
-		List<Contato> contatos = ContatoDAO.getAllUsers();
+		List<Contato> contatos = ContatoDAO.getAllContacts();
 		for(Contato contato : contatos) {
 			if(contato.getCelular().equals(celular)) {
 				throw new Exception("Numero de celular ja está cadastrado! ");
@@ -60,7 +60,7 @@ public class ContatoRegisterControler extends HttpServlet {
 
 	private void validaTelefone(String telefone) throws Exception {
 		
-		List<Contato> contatos = ContatoDAO.getAllUsers();
+		List<Contato> contatos = ContatoDAO.getAllContacts();
 		for(Contato contato : contatos) {
 			if(contato.getCelular().equals(telefone)) {
 				throw new Exception("Numero de telefone ja está cadastrado! ");
