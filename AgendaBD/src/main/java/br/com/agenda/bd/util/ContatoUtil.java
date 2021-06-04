@@ -18,7 +18,6 @@ public class ContatoUtil {
 				String password = "123456sete";
 
 				Class.forName("org.postgresql.Driver");
-
 				connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/agenda", user, password);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
