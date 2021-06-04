@@ -34,9 +34,10 @@ public class ContatoRegisterControler extends HttpServlet {
 			AddContato(nome, telefone, celular, grupo);
 		} catch (Exception e) {
 			req.setAttribute("erro", e.getMessage());
-			req.getRequestDispatcher("/registrar.jsp").forward(req,resp);
+			req.getRequestDispatcher("/contatoform.jsp").forward(req,resp);
 			e.printStackTrace();
 		}
+		resp.sendRedirect("/contatos");
 	}
 
 	private void AddContato(String nome, String telefone, String celular, String grupo) throws Exception {

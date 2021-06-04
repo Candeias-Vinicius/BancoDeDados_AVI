@@ -30,9 +30,10 @@ public class ContatoSaveUpdateController extends HttpServlet{
 			UpdateContato(id, nome, telefone, celular, grupo);
 		} catch (Exception e) {
 			req.setAttribute("erro", e.getMessage());
-			req.getRequestDispatcher("/contatos/contatoform.jsp").forward(req, resp);
+			req.getRequestDispatcher("/contatoform.jsp").forward(req, resp);
 			e.printStackTrace();
 		}
+		resp.sendRedirect("/contatos");
 	}
 	
 	private void UpdateContato(String id, String nome, String telefone, String celular, String grupo) throws Exception {

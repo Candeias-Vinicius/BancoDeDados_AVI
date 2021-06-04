@@ -9,12 +9,7 @@
 </head>
 <body>
 <div class="container">
-<c:if test="${erro ne null}">
-      <div class="alert alert-danger" role="alert">
-  		${erro}
-		</div>
-</c:if>
- 
+
 <form method="post" action="/contatos/register"  >
 	
     <input type="hidden" name="id" value="${contato.id}" >

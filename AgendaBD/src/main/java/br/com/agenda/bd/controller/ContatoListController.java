@@ -18,6 +18,6 @@ public class ContatoListController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		req.setAttribute("contatos", ContatoDAO.getAllContacts());
-		req.getRequestDispatcher("/contatosform.jsp").forward(req, resp);
+		req.getRequestDispatcher("/index.jsp").forward(req, resp);
 	}
 }

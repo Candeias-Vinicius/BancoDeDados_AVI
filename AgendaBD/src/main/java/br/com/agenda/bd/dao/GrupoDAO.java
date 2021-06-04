@@ -21,7 +21,7 @@ public class GrupoDAO {
 	public static void addContato(GrupoContato grupo) {
 		try {
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("insert into users(tipoGrupo) values (?)");
+					.prepareStatement("insert into Grupo(grupo) values (?)");
 
 			preparedStatement.setObject(1, grupo.getTipoGrupo());
 			
@@ -35,7 +35,7 @@ public class GrupoDAO {
 
 	public static void deleteContato(TipoGrupoEnum nomeGrupo) {
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("delete from users where nomeGrupo=?");
+			PreparedStatement preparedStatement = connection.prepareStatement("delete from Contato where grupo=?");
 
 			preparedStatement.setString(1, nomeGrupo.getValorEnum());
 			preparedStatement.executeUpdate();
@@ -48,7 +48,7 @@ public class GrupoDAO {
 	public static void updateContato(GrupoContato grupo) {
 		try {
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("update users set tipoGrupo=?");
+					.prepareStatement("update Contato set grupo=?");
 			
 			preparedStatement.setObject(1, grupo.getTipoGrupo());
 			
@@ -63,7 +63,7 @@ public class GrupoDAO {
 		List<GrupoContato> listaDeGrupos = new ArrayList<GrupoContato>();
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from grupo");
+			ResultSet rs = stmt.executeQuery("select * from Grupo");
 			while (rs.next()) {
 				GrupoContato grupo = new GrupoContato();
 				

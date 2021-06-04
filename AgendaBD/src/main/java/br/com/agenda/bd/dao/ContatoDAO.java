@@ -23,7 +23,7 @@ public class ContatoDAO {
 	public static void addContato(Contato contato) {
 		try {
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("insert into users(id,nome,telefone,celular,grupo) values (?, ?, ?,?,?)");
+					.prepareStatement("insert into Contato(id,nome,telefone,celular,grupo) values (?, ?, ?,?,?)");
 
 			preparedStatement.setInt(1, contato.getId());
 			preparedStatement.setString(2, contato.getNome());
@@ -40,7 +40,7 @@ public class ContatoDAO {
 
 	public static void deleteContato(Integer contatoId) {
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("delete from users where id=?");
+			PreparedStatement preparedStatement = connection.prepareStatement("delete from Contato where id=?");
 
 			preparedStatement.setLong(1, contatoId);
 			preparedStatement.executeUpdate();
@@ -53,7 +53,7 @@ public class ContatoDAO {
 	public static void updateContato(Contato contato) {
 		try {
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("update users set id=? , nome=?, telefone=?, celular=?, grupo=?");
+					.prepareStatement("update Contato set id=? , nome=?, telefone=?, celular=?, grupo=?");
 			
 			preparedStatement.setInt(1, contato.getId());
 			preparedStatement.setString(2, contato.getNome());
@@ -72,7 +72,7 @@ public class ContatoDAO {
 		List<Contato> listaDeUsuario = new ArrayList<Contato>();
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from contatos");
+			ResultSet rs = stmt.executeQuery("select * from Contato");
 			while (rs.next()) {
 				Contato contato = new Contato();
 				
@@ -95,7 +95,7 @@ public class ContatoDAO {
 		List<Contato> listaDeUsuario = new ArrayList<Contato>();
 		try {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("select grupo * from contatos");
+			ResultSet rs = stmt.executeQuery("select grupo * from Contato");
 			while (rs.next()) {
 				Contato contato = new Contato();
 				
