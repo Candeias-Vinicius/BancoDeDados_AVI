@@ -8,14 +8,14 @@ public class Contato {
 	private String nome;
 	private String telefone;
 	private String celular;
-	private TipoGrupoEnum Nomegrupo;
+	private Integer idGrupo;
 		
-	public Contato(String nome, String telefone, String celular, TipoGrupoEnum grupo) {
+	public Contato(String nome, String telefone, String celular, Integer idGrupo) {
 		super();
 		this.nome = nome;
 		this.telefone = telefone;
 		this.celular = celular;
-		this.Nomegrupo = grupo;
+		this.idGrupo = idGrupo;
 	}
 	
 	public Contato() {
@@ -47,11 +47,11 @@ public class Contato {
 		this.id = id;
 	}
 
-	public TipoGrupoEnum getGrupo() {
-		return Nomegrupo;
+	public Integer getIdGrupo() {
+		return idGrupo;
 	}
-	public void setGrupo(TipoGrupoEnum grupo) {
-		this.Nomegrupo = grupo;
+	public void setIdGrupo(Integer idGrupo) {
+		this.idGrupo = idGrupo;
 	}
 		
 	@Override

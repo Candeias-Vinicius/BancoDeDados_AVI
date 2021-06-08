@@ -9,15 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.agenda.bd.model.Contato;
-import br.com.agenda.bd.model.TipoGrupoEnum;
 import br.com.agenda.bd.util.ContatoUtil;
 
 public class ContatoDAO {
 
 	private static Connection connection;
 
-	public ContatoDAO() {
-		ContatoUtil.getConnection();
+	public ContatoDAO() throws ClassNotFoundException, SQLException {
+		connection = ContatoUtil.getConnection();
 	}
 
 	public static void addContato(Contato contato) {
@@ -29,7 +28,7 @@ public class ContatoDAO {
 			preparedStatement.setString(2, contato.getNome());
 			preparedStatement.setString(3, contato.getTelefone());
 			preparedStatement.setString(4, contato.getCelular());
-			preparedStatement.setString(5, contato.getGrupo().getValorEnum());
+			preparedStatement.setInt(5, contato.getIdGrupo());
 			
 			preparedStatement.executeUpdate();
 
@@ -42,7 +41,7 @@ public class ContatoDAO {
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement("delete from Contato where id=?");
 
-			preparedStatement.setLong(1, contatoId);
+			preparedStatement.setInt(1, contatoId);
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -53,13 +52,13 @@ public class ContatoDAO {
 	public static void updateContato(Contato contato) {
 		try {
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("update Contato set id=? , nome=?, telefone=?, celular=?, grupo=?");
+					.prepareStatement("update Contato set id=? , nome=?, telefone=?, celular=?, idGrupo=?");
 			
 			preparedStatement.setInt(1, contato.getId());
 			preparedStatement.setString(2, contato.getNome());
 			preparedStatement.setString(3, contato.getTelefone());
 			preparedStatement.setString(4, contato.getCelular());
-			preparedStatement.setString(5, contato.getGrupo().getValorEnum());
+			preparedStatement.setInt(5, contato.getIdGrupo());
 			
 			preparedStatement.executeUpdate();
 
@@ -80,8 +79,7 @@ public class ContatoDAO {
 				contato.setNome(rs.getString("nome"));
 				contato.setTelefone(rs.getString("telefone"));
 				contato.setCelular(rs.getString("celular"));
-				String grupo = rs.getString("grupo");
-				contato.setGrupo(TipoGrupoEnum.valueOf(grupo));
+				contato.setIdGrupo(rs.getInt("idGrrupo"));
 				listaDeUsuario.add(contato);
 			}
 		} catch (SQLException e) {
@@ -103,8 +101,7 @@ public class ContatoDAO {
 				contato.setNome(rs.getString("nome"));
 				contato.setTelefone(rs.getString("telefone"));
 				contato.setCelular(rs.getString("celular"));
-				String grupo = rs.getString("grupo");
-				contato.setGrupo(TipoGrupoEnum.valueOf(grupo));
+				contato.setIdGrupo(rs.getInt("idGrupo"));
 				listaDeUsuario.add(contato);
 			}
 		} catch (SQLException e) {

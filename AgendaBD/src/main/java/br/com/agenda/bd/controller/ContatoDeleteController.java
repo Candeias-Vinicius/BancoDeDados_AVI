@@ -9,16 +9,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/Contatosdelete")
+@WebServlet("/contatosdelete")
 public class ContatoDeleteController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String idContato = req.getParameter("idContato");
+		String id = req.getParameter("id");
 		 
-        ContatoDAO.deleteContato(Integer.parseInt(idContato));
+        ContatoDAO.deleteContato(Integer.parseInt(id));
         if (req.getAttribute("erro")!= null) {
         	req.getRequestDispatcher("/contatos").forward(req, resp);
         }else {

@@ -7,23 +7,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import br.com.agenda.bd.model.GrupoContato;
-import br.com.agenda.bd.model.TipoGrupoEnum;
+
+import br.com.agenda.bd.model.Grupo;
 import br.com.agenda.bd.util.ContatoUtil;
 
 public class GrupoDAO {
 	
 	private static Connection connection;
 	
-	public GrupoDAO() {
-		ContatoUtil.getConnection();
+	public GrupoDAO() throws ClassNotFoundException, SQLException {
+		connection = ContatoUtil.getConnection();
 	}
-	public static void addContato(GrupoContato grupo) {
+	public static void addGrupo(Grupo grupo) {
 		try {
 			PreparedStatement preparedStatement = connection
 					.prepareStatement("insert into Grupo(grupo) values (?)");
 
-			preparedStatement.setObject(1, grupo.getTipoGrupo());
+			preparedStatement.setObject(1, grupo.getNome());
 			
 			
 			preparedStatement.executeUpdate();
@@ -33,11 +33,11 @@ public class GrupoDAO {
 		}
 	}
 
-	public static void deleteContato(TipoGrupoEnum nomeGrupo) {
+	public static void deleteGrupo(Integer id) {
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("delete from Contato where grupo=?");
+			PreparedStatement preparedStatement = connection.prepareStatement("delete from Grupo where id=?");
 
-			preparedStatement.setString(1, nomeGrupo.getValorEnum());
+			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -45,12 +45,12 @@ public class GrupoDAO {
 		}
 	}
 
-	public static void updateContato(GrupoContato grupo) {
+	public static void updateContato(Grupo grupo) {
 		try {
 			PreparedStatement preparedStatement = connection
 					.prepareStatement("update Contato set grupo=?");
 			
-			preparedStatement.setObject(1, grupo.getTipoGrupo());
+			preparedStatement.setObject(1, grupo.getNome());
 			
 			
 			preparedStatement.executeUpdate();
@@ -59,18 +59,18 @@ public class GrupoDAO {
 			e.printStackTrace();
 		}
 	}
-	public static List<GrupoContato> getAllGroups() {
-		List<GrupoContato> listaDeGrupos = new ArrayList<GrupoContato>();
+	public static List<Grupo> getAllGroups() {
+		List<Grupo> listaDeGrupos = new ArrayList<Grupo>();
 		try {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from Grupo");
 			while (rs.next()) {
-				GrupoContato grupo = new GrupoContato();
+				Grupo grupo = new Grupo(null);
 				
-				String nomeGrupo = rs.getString("nomeGrupo");
-				grupo.setTipoGrupo(TipoGrupoEnum.valueOf(nomeGrupo));
+				grupo.setId(rs.getInt("id"));
+				grupo.setNome(rs.getString("nome"));
 				
-				
+				listaDeGrupos.add(grupo);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

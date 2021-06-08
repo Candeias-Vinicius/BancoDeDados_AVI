@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.com.agenda.bd.dao.ContatoDAO;
 import br.com.agenda.bd.model.Contato;
-import br.com.agenda.bd.model.TipoGrupoEnum;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,7 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/contatos/update")
-public class ContatoSaveUpdateController extends HttpServlet{
+public class ContatoUpdateController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -24,10 +23,10 @@ public class ContatoSaveUpdateController extends HttpServlet{
 		String nome = req.getParameter("nome");
 		String telefone = req.getParameter("telefone");
 		String celular = req.getParameter("celular");
-		String grupo = req.getParameter("grupo");
+		String idGrupo = req.getParameter("grupo");
 		
 		try {
-			UpdateContato(id, nome, telefone, celular, grupo);
+			UpdateContato(id, nome, telefone, celular, idGrupo);
 		} catch (Exception e) {
 			req.setAttribute("erro", e.getMessage());
 			req.getRequestDispatcher("/contatoform.jsp").forward(req, resp);
@@ -36,11 +35,11 @@ public class ContatoSaveUpdateController extends HttpServlet{
 		resp.sendRedirect("/contatos");
 	}
 	
-	private void UpdateContato(String id, String nome, String telefone, String celular, String grupo) throws Exception {
+	private void UpdateContato(String id, String nome, String telefone, String celular, String idGrupo) throws Exception {
 		
 		validaTelefone(telefone);
 		validaCelular(celular);
-		Contato contato = new Contato(nome, celular, telefone, TipoGrupoEnum.valueOf(grupo));
+		Contato contato = new Contato(nome, celular, telefone, Integer.parseInt(idGrupo));
 		Integer i = Integer.parseInt(id);
 		contato.setId(i);
 

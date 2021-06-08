@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.com.agenda.bd.dao.ContatoDAO;
 import br.com.agenda.bd.model.Contato; 
-import br.com.agenda.bd.model.TipoGrupoEnum;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,10 +27,10 @@ public class ContatoRegisterControler extends HttpServlet {
 		String nome = req.getParameter("nome");
 		String telefone = req.getParameter("telefone");
 		String celular = req.getParameter("celular");
-		String grupo = req.getParameter("grupo");
+		String idGrupo = req.getParameter("idGrupo");
 		
 		try {
-			AddContato(nome, telefone, celular, grupo);
+			AddContato(nome, telefone, celular, idGrupo);
 		} catch (Exception e) {
 			req.setAttribute("erro", e.getMessage());
 			req.getRequestDispatcher("/contatoform.jsp").forward(req,resp);
@@ -40,12 +39,12 @@ public class ContatoRegisterControler extends HttpServlet {
 		resp.sendRedirect("/contatos");
 	}
 
-	private void AddContato(String nome, String telefone, String celular, String grupo) throws Exception {
+	private void AddContato(String nome, String telefone, String celular, String idGrupo) throws Exception {
 		
 		validaTelefone(telefone);
 		validaCelular(celular);
 		
-		Contato contato = new Contato(nome, telefone, celular, TipoGrupoEnum.valueOf(grupo));
+		Contato contato = new Contato(nome, telefone, celular, Integer.parseInt(idGrupo));
 		ContatoDAO.addContato(contato);
 	}
 
