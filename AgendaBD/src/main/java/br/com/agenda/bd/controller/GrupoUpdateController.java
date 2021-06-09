@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("grupos/update")
+@WebServlet("/grupos/update")
 public class GrupoUpdateController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
@@ -40,7 +40,7 @@ public class GrupoUpdateController extends HttpServlet{
 		List<Grupo> grupos = GrupoDAO.getAllGroups();
 		for(Grupo grupo: grupos) {
 			if(grupo.getNome().equals(nome)) {
-				throw new Exception("Grupo já existe! ");
+				throw new Exception("Grupo jï¿½ existe! ");
 			}
 		}
 	}

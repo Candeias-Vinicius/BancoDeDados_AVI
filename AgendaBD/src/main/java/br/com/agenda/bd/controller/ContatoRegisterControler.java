@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("contatos/register")
+@WebServlet("/contatos/register")
 public class ContatoRegisterControler extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -53,7 +53,7 @@ public class ContatoRegisterControler extends HttpServlet {
 		List<Contato> contatos = ContatoDAO.getAllContacts();
 		for(Contato contato : contatos) {
 			if(contato.getCelular().equals(celular)) {
-				throw new Exception("Numero de celular ja está cadastrado! ");
+				throw new Exception("Numero de celular ja estï¿½ cadastrado! ");
 			}
 		}
 	}
@@ -63,7 +63,7 @@ public class ContatoRegisterControler extends HttpServlet {
 		List<Contato> contatos = ContatoDAO.getAllContacts();
 		for(Contato contato : contatos) {
 			if(contato.getCelular().equals(telefone)) {
-				throw new Exception("Numero de telefone ja está cadastrado! ");
+				throw new Exception("Numero de telefone ja estï¿½ cadastrado! ");
 			}
 		}
 	}
