@@ -6,22 +6,28 @@ import java.sql.SQLException;
 
 public class ContatoUtil {
 
-	private static final String URL = "jdbc:potgresql://localhost:5432/potgres";
-	private static final String USER = "postgres";
-	private static final String PASS = "Santabarbara@16";
-	
-	public static Connection getConnection() throws ClassNotFoundException, SQLException {
-		
-		Class.forName("org.postgresql.Driver");
-		Connection connection = DriverManager.getConnection(URL,USER,PASS);
-		if(connection != null) {
-			System.out.println("Conex„o efetuado com sucesso...");
+	private static Connection connection = null;
+
+	public static Connection getConnection() {
+		if (connection != null)
+			return connection;
+		else {
+			try {
+
+				String user = "postgres";
+				String password = "123456sete";
+
+				Class.forName("org.postgresql.Driver");
+				connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/agenda", user, password);
+				System.out.println("Conex√£o realizada com sucesso!");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return connection;
 		}
-		System.out.println("Deu ruim");
-		return null;
-		
+
 	}
-	
 
 }

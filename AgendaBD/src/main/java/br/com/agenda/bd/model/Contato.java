@@ -2,6 +2,8 @@ package br.com.agenda.bd.model;
 
 import java.util.Objects;
 
+import jakarta.annotation.Generated;
+
 public class Contato {
 	
 	private Integer id;
@@ -10,8 +12,10 @@ public class Contato {
 	private String celular;
 	private Integer idGrupo;
 		
-	public Contato(String nome, String telefone, String celular, Integer idGrupo) {
+	public Contato(Integer id, String nome, String telefone, String celular, Integer idGrupo) {
 		super();
+		
+		this.id = id;
 		this.nome = nome;
 		this.telefone = telefone;
 		this.celular = celular;
@@ -69,5 +73,11 @@ public class Contato {
 		}
 		Contato other = (Contato) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Contato [id=" + id + ", nome=" + nome + ", telefone=" + telefone + ", celular=" + celular + ", idGrupo="
+				+ idGrupo + "]";
 	}
 }

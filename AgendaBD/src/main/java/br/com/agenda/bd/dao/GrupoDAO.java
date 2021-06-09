@@ -12,20 +12,21 @@ import br.com.agenda.bd.model.Grupo;
 import br.com.agenda.bd.util.ContatoUtil;
 
 public class GrupoDAO {
-	
+
 	private static Connection connection;
-	
+
 	public GrupoDAO() throws ClassNotFoundException, SQLException {
 		connection = ContatoUtil.getConnection();
 	}
+
 	public static void addGrupo(Grupo grupo) {
 		try {
-			PreparedStatement preparedStatement = connection
-					.prepareStatement("insert into Grupo(grupo) values (?)");
+			PreparedStatement preparedStatement = ContatoUtil.getConnection()
+					.prepareStatement("insert into Grupo(grupoid, nome) values (?,?)");
 
-			preparedStatement.setObject(1, grupo.getNome());
-			
-			
+			preparedStatement.setObject(1, grupo.getId());
+			preparedStatement.setObject(2, grupo.getNome());
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -47,29 +48,29 @@ public class GrupoDAO {
 
 	public static void updateContato(Grupo grupo) {
 		try {
-			PreparedStatement preparedStatement = connection
+			PreparedStatement preparedStatement = ContatoUtil.getConnection()
 					.prepareStatement("update Contato set grupo=?");
-			
+
 			preparedStatement.setObject(1, grupo.getNome());
-			
-			
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
 	public static List<Grupo> getAllGroups() {
 		List<Grupo> listaDeGrupos = new ArrayList<Grupo>();
 		try {
-			Statement stmt = connection.createStatement();
+			Statement stmt = ContatoUtil.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery("select * from Grupo");
 			while (rs.next()) {
-				Grupo grupo = new Grupo(null);
-				
-				grupo.setId(rs.getInt("id"));
+				Grupo grupo = new Grupo(null, null);
+
+				grupo.setId(rs.getInt("grupoid"));
 				grupo.setNome(rs.getString("nome"));
-				
+
 				listaDeGrupos.add(grupo);
 			}
 		} catch (SQLException e) {
@@ -78,5 +79,5 @@ public class GrupoDAO {
 
 		return listaDeGrupos;
 	}
-	
+
 }
