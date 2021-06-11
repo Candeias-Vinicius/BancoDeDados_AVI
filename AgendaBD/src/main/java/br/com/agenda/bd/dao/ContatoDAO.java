@@ -16,13 +16,13 @@ public class ContatoDAO {
 	public static void addContato(Contato contato) {
 		try {
 			PreparedStatement preparedStatement = ContatoUtil.getConnection().prepareStatement(
-					"insert into contato(contatoid,nome,telefone,celular,grupoid) values (?, ?, ?,?, ?)");
+					"insert into contato(nome,telefone,celular,grupoid) values (?, ?,?, ?)");
 
-			preparedStatement.setInt(1, contato.getId());
-			preparedStatement.setString(2, contato.getNome());
-			preparedStatement.setString(3, contato.getTelefone());
-			preparedStatement.setString(4, contato.getCelular());
-			preparedStatement.setInt(5, contato.getIdGrupo());
+			
+			preparedStatement.setString(1, contato.getNome());
+			preparedStatement.setString(2, contato.getTelefone());
+			preparedStatement.setString(3, contato.getCelular());
+			preparedStatement.setInt(4, contato.getIdGrupo());
 
 			preparedStatement.executeUpdate();
 

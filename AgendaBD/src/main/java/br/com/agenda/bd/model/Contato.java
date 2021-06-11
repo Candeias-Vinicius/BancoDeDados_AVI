@@ -1,7 +1,5 @@
 package br.com.agenda.bd.model;
 
-import java.util.Objects;
-
 public class Contato {
 	
 	private Integer id;
@@ -10,10 +8,9 @@ public class Contato {
 	private String celular;
 	private Integer idGrupo;
 		
-	public Contato(Integer id, String nome, String telefone, String celular, Integer idGrupo) {
+	public Contato(String nome, String telefone, String celular, Integer idGrupo) {
 		super();
-		
-		this.id = id;
+			
 		this.nome = nome;
 		this.telefone = telefone;
 		this.celular = celular;
@@ -45,10 +42,6 @@ public class Contato {
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public Integer getIdGrupo() {
 		return idGrupo;
 	}
@@ -56,21 +49,8 @@ public class Contato {
 		this.idGrupo = idGrupo;
 	}
 		
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Contato)) {
-			return false;
-		}
-		Contato other = (Contato) obj;
-		return Objects.equals(id, other.id);
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@Override

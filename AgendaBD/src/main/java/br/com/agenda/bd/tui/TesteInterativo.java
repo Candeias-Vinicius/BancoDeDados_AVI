@@ -124,6 +124,7 @@ public class TesteInterativo {
 		
 		Grupo grupo = GrupoDAO.buscaGrupo(nome);
 		GrupoDAO.deleteGrupo(grupo.getId());
+		System.out.println("Grupo removido !");
 	}
 
 	private static void removerContato(Scanner entrada) {
@@ -138,6 +139,7 @@ public class TesteInterativo {
 		
 		Contato contato = ContatoDAO.buscaContato(nome);
 		ContatoDAO.deleteContato(contato.getId());
+		System.out.println("Contato removido !");
 	}
 
 	private static void alterarGrupo(Scanner entrada) {
@@ -158,6 +160,7 @@ public class TesteInterativo {
 		grupo.setNome(entrada.nextLine());
 		
 		GrupoDAO.updateGrupo(grupo);
+		System.out.println("Grupo atualizado !");
 	}
 
 	private static void alterarContato(Scanner entrada) {
@@ -186,7 +189,7 @@ public class TesteInterativo {
 			contato.setTelefone(entrada.nextLine());
 			
 			System.out.println("Digite um numero de celular");
-			contato.setTelefone(entrada.nextLine());
+			contato.setCelular(entrada.nextLine());
 			
 			List<Grupo> grupos = GrupoDAO.getAllGroups();
 			
@@ -201,25 +204,24 @@ public class TesteInterativo {
 			contato.setIdGrupo(grupo.getId());
 			
 			ContatoDAO.updateContato(contato);
+			System.out.println("Contato atualizado !");
 		
 	}
 
 	private static void adicionarGrupo(Scanner entrada) {
-		Integer grupoid;
+		
 		String nome;
 		System.out.println("_____________________Adicionar Grupo_________________________\n");
-		System.out.println("Digite o id do grupo");
-		grupoid = entrada.nextInt();
 		System.out.println("Digite um nome");
 		nome = entrada.nextLine();
-		nome = entrada.nextLine();
 		
-		Grupo g1 = new Grupo(nome, grupoid);
+		Grupo g1 = new Grupo(nome);
 		GrupoDAO.addGrupo(g1);
+		System.out.println("Grupo adicionado com sucesso !");
 	}
 
 	private static void adicionarContato(Scanner entrada) {
-		Integer id;
+
 		String nome;
 		String telefone;
 		String celular;
@@ -227,10 +229,8 @@ public class TesteInterativo {
 		String nomeGrupo;
 		
 		System.out.println("_____________________Adicionar contato_________________________\n");
-		System.out.println("Digite o id do contato");
-		id = entrada.nextInt();
+
 		System.out.println("Digite um nome");
-		nome = entrada.nextLine();
 		nome = entrada.nextLine();
 		System.out.println("Digite o numero de telefone");
 		telefone = entrada.nextLine();
@@ -243,8 +243,9 @@ public class TesteInterativo {
 		Grupo grupo = GrupoDAO.buscaGrupo(nomeGrupo);
 		grupoid = grupo.getId();
 		
-		Contato c1 = new Contato(id, nome, telefone, celular, grupoid);
+		Contato c1 = new Contato(nome, telefone, celular, grupoid);
 		ContatoDAO.addContato(c1);
+		System.out.println("Contato adicionado com sucesso !");
 	}
 	
 }

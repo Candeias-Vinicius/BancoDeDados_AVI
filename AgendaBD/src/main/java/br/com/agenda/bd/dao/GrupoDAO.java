@@ -15,10 +15,10 @@ public class GrupoDAO {
 	public static void addGrupo(Grupo grupo) {
 		try {
 			PreparedStatement preparedStatement = ContatoUtil.getConnection()
-					.prepareStatement("insert into grupo(grupoid, nome) values (?,?)");
+					.prepareStatement("insert into grupo(nome) values (?)");
 
-			preparedStatement.setInt(1, grupo.getId());
-			preparedStatement.setString(2, grupo.getNome());
+
+			preparedStatement.setString(1, grupo.getNome());
 
 			preparedStatement.executeUpdate();
 
@@ -59,7 +59,7 @@ public class GrupoDAO {
 			Statement stmt = ContatoUtil.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery("select * from grupo");
 			while (rs.next()) {
-				Grupo grupo = new Grupo(null, null);
+				Grupo grupo = new Grupo();
 
 				grupo.setId(rs.getInt("grupoid"));
 				grupo.setNome(rs.getString("nome"));

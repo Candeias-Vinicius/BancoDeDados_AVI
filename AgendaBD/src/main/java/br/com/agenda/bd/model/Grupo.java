@@ -6,12 +6,14 @@ public class Grupo {
 	private Integer id;
 	private String nome;
 	
-	public Grupo(String nome, Integer id) {
+	public Grupo(String nome) {
 		
-		this.nome = nome;
-		this.id = id;
+		this.nome = nome;		
+	}	
+	public Grupo() {
+		
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
