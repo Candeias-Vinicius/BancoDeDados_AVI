@@ -1,6 +1,5 @@
 package br.com.agenda.bd.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,12 +12,7 @@ import br.com.agenda.bd.util.ContatoUtil;
 
 public class ContatoDAO {
 
-	private static Connection connection;
-
-	public ContatoDAO() throws ClassNotFoundException, SQLException {
-		connection = ContatoUtil.getConnection();
-	}
-
+	
 	public static void addContato(Contato contato) {
 		try {
 			PreparedStatement preparedStatement = ContatoUtil.getConnection().prepareStatement(
@@ -40,7 +34,7 @@ public class ContatoDAO {
 	public static void deleteContato(Integer contatoId) {
 		try {
 			PreparedStatement preparedStatement = ContatoUtil.getConnection()
-					.prepareStatement("delete from Contato where contatoid=?");
+					.prepareStatement("delete from contato where contatoid=?");
 
 			preparedStatement.setInt(1, contatoId);
 			preparedStatement.executeUpdate();
@@ -53,49 +47,27 @@ public class ContatoDAO {
 	public static void updateContato(Contato contato) {
 		try {
 			PreparedStatement preparedStatement = ContatoUtil.getConnection()
-					.prepareStatement("update Contato set id=? , nome=?, telefone=?, celular=?, idGrupo=?");
-
-			preparedStatement.setInt(1, contato.getId());
-			preparedStatement.setString(2, contato.getNome());
-			preparedStatement.setString(3, contato.getTelefone());
-			preparedStatement.setString(4, contato.getCelular());
-			preparedStatement.setInt(5, contato.getIdGrupo());
-
+					.prepareStatement("update contato set nome=?, telefone=?, celular=?, grupoid=? where contatoid=?");
+			
+			
+			preparedStatement.setString(1, contato.getNome());
+			preparedStatement.setString(2, contato.getTelefone());
+			preparedStatement.setString(3, contato.getCelular());
+			preparedStatement.setInt(4, contato.getIdGrupo());
+			preparedStatement.setInt(5, contato.getId());
+			
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	} 
 
 	public static List<Contato> getAllContacts() {
 		List<Contato> listaDeUsuario = new ArrayList<Contato>();
 		try {
 			Statement stmt = ContatoUtil.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery("select * from contato");
-			while (rs.next()) {
-				Contato contato = new Contato();
-
-				contato.setId(rs.getInt("contatoid"));
-				contato.setNome(rs.getString("nome"));
-				contato.setTelefone(rs.getString("telefone"));
-				contato.setCelular(rs.getString("celular"));
-				listaDeUsuario.add(contato);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return listaDeUsuario;
-	}
-
-	public static List<Contato> getContactsForGroups() {
-		List<Contato> listaDeUsuario = new ArrayList<Contato>();
-		try {
-			Statement stmt = ContatoUtil.getConnection().createStatement();
-			ResultSet rs = stmt.executeQuery("select contatoid, contato.grupoid,"
-					+ " contato.nome, contato.telefone, contato.celular from contato "
-					+ "inner join grupo on contato.grupoid = grupo.grupoid");
 			while (rs.next()) {
 				Contato contato = new Contato();
 
@@ -111,5 +83,16 @@ public class ContatoDAO {
 		}
 
 		return listaDeUsuario;
+	}
+
+	public static Contato buscaContato (String nome) {
+		List<Contato> contatos = ContatoDAO.getAllContacts();
+		for (Contato contato : contatos) {
+			if(contato.getNome().equals(nome)) {
+				return contato;
+			}
+		}
+		return null;
+		
 	}
 }

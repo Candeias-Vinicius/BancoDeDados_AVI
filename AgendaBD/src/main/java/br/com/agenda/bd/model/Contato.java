@@ -2,8 +2,6 @@ package br.com.agenda.bd.model;
 
 import java.util.Objects;
 
-import jakarta.annotation.Generated;
-
 public class Contato {
 	
 	private Integer id;
@@ -77,7 +75,6 @@ public class Contato {
 
 	@Override
 	public String toString() {
-		return "Contato [id=" + id + ", nome=" + nome + ", telefone=" + telefone + ", celular=" + celular + ", idGrupo="
-				+ idGrupo + "]";
+		return "\n Contato: " + nome + ", \n Telefone: " + telefone + ", \n Celular: " + celular + "\n";
 	}
 }

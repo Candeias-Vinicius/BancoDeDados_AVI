@@ -9,25 +9,26 @@ public class ContatoUtil {
 	private static Connection connection = null;
 
 	public static Connection getConnection() {
-		if (connection != null)
+		
+		if(connection != null) {
 			return connection;
-		else {
+		}else {
 			try {
 
-				String user = "postgres";
-				String password = "123456sete";
+				String user = "postgres"; // Aqui temos o login do banco
+				String password = "Santabarbara@16"; //aqui nos temos a senha do banco
 
 				Class.forName("org.postgresql.Driver");
-				connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/agenda", user, password);
-				System.out.println("Conex√£o realizada com sucesso!");
+				connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/agenda", user, password); 
+				System.out.println("Conex„o realizada com sucesso!");
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
 			return connection;
 		}
 
 	}
 
-}

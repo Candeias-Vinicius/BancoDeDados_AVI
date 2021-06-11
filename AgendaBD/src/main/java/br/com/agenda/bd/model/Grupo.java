@@ -27,7 +27,7 @@ public class Grupo {
 
 	@Override
 	public String toString() {
-		return "Grupo [id=" + id + ", nome=" + nome + "]";
+		return "Grupo:  " + nome;
 	}
 	
 	
