@@ -12,8 +12,8 @@ import br.com.agenda.bd.util.ContatoUtil;
 
 public class GrupoDAO {
 
-	public static void addGrupo(Grupo grupo) {
-		try {
+	public static void addGrupo(Grupo grupo) throws SQLException {
+
 			PreparedStatement preparedStatement = ContatoUtil.getConnection()
 					.prepareStatement("insert into grupo(nome) values (?)");
 
@@ -22,21 +22,15 @@ public class GrupoDAO {
 
 			preparedStatement.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
-	public static void deleteGrupo(Integer grupoid) {
-		try {
+	public static void deleteGrupo(Integer grupoid) throws SQLException {
+	
 			PreparedStatement preparedStatement = ContatoUtil.getConnection().prepareStatement("delete from grupo where grupoid=?");
 
 			preparedStatement.setInt(1, grupoid);
 			preparedStatement.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static void updateGrupo(Grupo grupo) {
@@ -53,9 +47,9 @@ public class GrupoDAO {
 		}
 	} 
 
-	public static List<Grupo> getAllGroups() {
+	public static List<Grupo> getAllGroups() throws SQLException {
 		List<Grupo> listaDeGrupos = new ArrayList<Grupo>();
-		try {
+		
 			Statement stmt = ContatoUtil.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery("select * from grupo");
 			while (rs.next()) {
@@ -66,14 +60,12 @@ public class GrupoDAO {
 
 				listaDeGrupos.add(grupo);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+
 
 		return listaDeGrupos;
 	}
 
-	public static Grupo buscaGrupo (String nomeGrupo) {
+	public static Grupo buscaGrupo (String nomeGrupo) throws SQLException {
 		List<Grupo> grupos = GrupoDAO.getAllGroups();
 		for (Grupo grupo : grupos) {
 			if(grupo.getNome().equals(nomeGrupo)) {
@@ -82,7 +74,7 @@ public class GrupoDAO {
 		}
 		return null;		
 	}
-	public static Grupo buscaGrupoPorId (Integer grupoid) {
+	public static Grupo buscaGrupoPorId (Integer grupoid) throws SQLException {
 		List<Grupo> grupos = GrupoDAO.getAllGroups();
 		for (Grupo grupo : grupos) {
 			if(grupo.getId().equals(grupoid)) {

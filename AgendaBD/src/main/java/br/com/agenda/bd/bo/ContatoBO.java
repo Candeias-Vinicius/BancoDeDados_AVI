@@ -1,11 +1,10 @@
 package br.com.agenda.bd.bo;
 
+import java.sql.SQLException;
 import java.util.List;
-
 import br.com.agenda.bd.dao.ContatoDAO;
-import br.com.agenda.bd.dao.GrupoDAO;
 import br.com.agenda.bd.model.Contato;
-import br.com.agenda.bd.model.Grupo;
+
 
 public class ContatoBO {
 	
@@ -13,7 +12,6 @@ public class ContatoBO {
 		validaNome(contato.getNome());
 		validaTelefone(contato.getTelefone());
 		validaCelular(contato.getCelular());
-		validaIdGrupo(contato.getIdGrupo());
 		
 	}
 
@@ -47,23 +45,31 @@ public class ContatoBO {
 		}		
 	}
 
-	private static void validaIdGrupo(Integer idGrupo) throws Exception {
-		List<Grupo> grupos = GrupoDAO.getAllGroups();
-		for (Grupo grupo : grupos) {
-			if (grupo.getId().equals(idGrupo)) {
-				
-			}else {
-				throw new Exception("Numero de celular já existe!");
-			}
-		}		
-	}
-	public static void cadastraContato(Contato contato) {
-		try {
+	public static void cadastraContato(Contato contato) throws Exception {
+
 			validaContato(contato);
-			System.out.println("Contato Adicionado com sucesso! ");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			ContatoDAO.addContato(contato);
+		
+	}
+	public static void excluirContato(Integer id) throws SQLException  {				
+			ContatoDAO.deleteContato(id);
+
+	}
+	public static void alterarContato(Contato contato) throws Exception {
+			validaContato(contato);
+			ContatoDAO.updateContato(contato);
+	}
+	
+	public static List<Contato> listarContatos() throws SQLException {
+		return ContatoDAO.getAllContacts();
+	}
+	
+	public static Contato buscaContato(String nome) throws SQLException, Exception {
+		Contato contato = ContatoDAO.buscaContato(nome);
+		if(contato == null) {
+			throw new Exception("Contato nao foi encontrado !");
 		}
-		ContatoDAO.addContato(contato);
+		return contato;
+		
 	}
 }

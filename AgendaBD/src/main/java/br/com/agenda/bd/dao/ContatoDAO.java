@@ -13,8 +13,8 @@ import br.com.agenda.bd.util.ContatoUtil;
 public class ContatoDAO {
 
 	
-	public static void addContato(Contato contato) {
-		try {
+	public static void addContato(Contato contato) throws SQLException {
+
 			PreparedStatement preparedStatement = ContatoUtil.getConnection().prepareStatement(
 					"insert into contato(nome,telefone,celular,grupoid) values (?, ?,?, ?)");
 
@@ -26,26 +26,22 @@ public class ContatoDAO {
 
 			preparedStatement.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+
 	}
 
-	public static void deleteContato(Integer contatoId) {
-		try {
+	public static void deleteContato(Integer contatoId) throws SQLException {
+		
 			PreparedStatement preparedStatement = ContatoUtil.getConnection()
 					.prepareStatement("delete from contato where contatoid=?");
 
 			preparedStatement.setInt(1, contatoId);
 			preparedStatement.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+
 	}
 
-	public static void updateContato(Contato contato) {
-		try {
+	public static void updateContato(Contato contato) throws SQLException {
+	
 			PreparedStatement preparedStatement = ContatoUtil.getConnection()
 					.prepareStatement("update contato set nome=?, telefone=?, celular=?, grupoid=? where contatoid=?");
 			
@@ -58,14 +54,12 @@ public class ContatoDAO {
 			
 			preparedStatement.executeUpdate();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	
 	} 
 
-	public static List<Contato> getAllContacts() {
+	public static List<Contato> getAllContacts() throws SQLException {
 		List<Contato> listaDeUsuario = new ArrayList<Contato>();
-		try {
+		
 			Statement stmt = ContatoUtil.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery("select * from contato");
 			while (rs.next()) {
@@ -78,14 +72,12 @@ public class ContatoDAO {
 				contato.setIdGrupo(rs.getInt("grupoid"));
 				listaDeUsuario.add(contato);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+
 
 		return listaDeUsuario;
 	}
 
-	public static Contato buscaContato (String nome) {
+	public static Contato buscaContato (String nome) throws SQLException {
 		List<Contato> contatos = ContatoDAO.getAllContacts();
 		for (Contato contato : contatos) {
 			if(contato.getNome().equals(nome)) {
